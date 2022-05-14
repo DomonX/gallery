@@ -1,0 +1,13 @@
+@import "_variables.scss";
+.card {
+  margin-top: 32px;
+  width: 100%;
+}
+
+:host {
+  display: contents;
+}
+
+.search {
+  width: 400px;
+}

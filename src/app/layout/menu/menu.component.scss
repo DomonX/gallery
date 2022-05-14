@@ -1,0 +1,53 @@
+@import "_variables.scss";
+
+.menu-container {
+  position: fixed;
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  @include desktop {
+    flex-direction: column;
+  }
+  gap: 8px;
+  z-index: 3;
+}
+
+.menu-item {
+  border-radius: 50%;
+  background-color: $primary-blue-500;
+  color: $primary-blue-100;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  position: relative;
+  &:hover {
+    transform: scale(1.1);
+    background-color: $primary-blue-600;
+    box-shadow: 0px 0px 8px 0px $primary-blue-200;
+    .label {
+      left: calc(100% + 12px);
+      opacity: 1;
+    }
+  }
+
+  .label {
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+    white-space: nowrap;
+    left: 0;
+    color: $primary-blue-100;
+    text-shadow: 0px 0px 1px $primary-blue-900, 0px 0px 2px $primary-blue-900,
+      0px 0px 3px $primary-blue-900;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+    display: none;
+    @include desktop {
+      display: unset;
+    }
+  }
+}

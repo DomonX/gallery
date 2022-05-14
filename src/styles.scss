@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+@import "_variables.scss";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  background-color: $background-blue-900;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: $primary-blue-500;
+  text-decoration: none;
+}
+
+.card {
+  padding: 32px;
+  border-radius: 8px;
+  background-color: $background-white-100;
+  color: $primary-blue-900;
+}

@@ -1,0 +1,28 @@
+<div class="card">
+  <h2>Dodawanie zdjeć do galerii</h2>
+  <div class="file-upload">
+    <div class="file-select">
+      <input
+        #file
+        style="display: none"
+        type="file"
+        name="chooseFile"
+        id="chooseFile"
+        multiple
+        accept="image/*"
+        (change)="onFileChange($event)"
+      />
+      <div
+        (click)="file.click()"
+        (dragover)="prevent($event)"
+        (dragenter)="prevent($event)"
+        (drop)="onDropFiles($event)"
+        class="file-drop"
+      >
+        <mat-icon style="margin-bottom: 16px">add_a_photo</mat-icon>
+        <p>Przeciągnij pliki</p>
+        <p>Lub kliknij</p>
+      </div>
+    </div>
+  </div>
+</div>

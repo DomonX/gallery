@@ -1,0 +1,48 @@
+$primary-blue-100: #e6f7ff;
+$primary-blue-200: #bae7ff;
+$primary-blue-300: #90cdf4;
+$primary-blue-400: #63b3ed;
+$primary-blue-500: #4299e1;
+$primary-blue-600: #3182ce;
+$primary-blue-700: #2b6cb0;
+$primary-blue-800: #2c5282;
+$primary-blue-900: #2a4365;
+
+$background-blue-900: #1d2028;
+$background-blue-800: #282c34;
+$background-blue-700: #303d5c;
+$background-blue-600: #3c5a99;
+$background-blue-500: #4a69bd;
+$background-blue-400: #5c80d9;
+$background-blue-300: #6d9ae7;
+$background-blue-200: #86afeb;
+$background-blue-100: #a2c4dd;
+
+$background-white-100: #fff;
+$background-white-200: #f7fafc;
+$background-white-300: #edf2f7;
+$background-white-400: #e2e8f0;
+$background-white-500: #cbd5e0;
+$background-white-600: #a0aec0;
+$background-white-700: #718096;
+$background-white-800: #4a5568;
+$background-white-900: #2d3748;
+
+$error-red: #f44336;
+$accent-900: #ff1744;
+$accent-800: #ff5252;
+$accent-700: #ff80ab;
+$accent-600: #ffa726;
+$accent-500: #ffca28;
+$accent-400: #ffeb3b;
+$accent-300: #fffde7;
+$accent-200: #fff9c4;
+$accent-100: #fff3e0;
+
+$desktop: 1200px;
+
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}

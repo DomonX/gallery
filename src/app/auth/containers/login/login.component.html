@@ -1,0 +1,37 @@
+<div class="wrapper">
+  <form [formGroup]="form" class="card">
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput placeholder="Placeholder" />
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-hint *ngIf="form.controls['email'].invalid"></mat-hint>
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field appearance="outline">
+        <mat-label>Hasło</mat-label>
+        <input
+          formControlName="password"
+          type="password"
+          matInput
+          placeholder="Placeholder"
+        />
+        <mat-icon matSuffix>lock</mat-icon>
+      </mat-form-field>
+    </p>
+    <div class="footer">
+      <button type="submit" mat-raised-button color="primary" (click)="login()">
+        Zaloguj się
+      </button>
+      <button
+        type="button"
+        mat-raised-button
+        color="accent"
+        (click)="register()"
+      >
+        Zarejestruj
+      </button>
+    </div>
+  </form>
+</div>

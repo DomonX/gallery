@@ -1,0 +1,32 @@
+<div class="menu-container">
+  <a *ngIf="loggedUser$ | async" [routerLink]="['./']" class="menu-item">
+    <span class="label">Strona główna</span>
+    <mat-icon class="menu-icon">home</mat-icon>
+  </a>
+  <a *ngIf="loggedUser$ | async" [routerLink]="['gallery']" class="menu-item">
+    <div class="menu-item">
+      <span class="label">Galeria</span>
+      <mat-icon class="menu-icon">photo_library</mat-icon>
+    </div>
+  </a>
+  <a
+    *ngIf="loggedUser$ | async"
+    [routerLink]="['gallery/favorite']"
+    class="menu-item"
+  >
+    <div class="menu-item">
+      <span class="label">Ulubione</span>
+      <mat-icon class="menu-icon">favorite</mat-icon>
+    </div>
+  </a>
+  <a *ngIf="!(loggedUser$ | async)" [routerLink]="['login']" class="menu-item">
+    <div class="menu-item">
+      <span class="label">Zaloguj się</span>
+      <mat-icon class="menu-icon">login</mat-icon>
+    </div>
+  </a>
+  <div *ngIf="loggedUser$ | async" (click)="logout()" class="menu-item">
+    <span class="label">Wyloguj się</span>
+    <mat-icon class="menu-icon">logout</mat-icon>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-header">
+    <h2>Galeria</h2>
+  </div>
+  <p>Wyszukaj zdjęcie</p>
+  <mat-form-field class="search" appearance="outline">
+    <input [formControl]="searchControl" type="text" matInput />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <ng-container *ngIf="rangeSize$ | async as range">
+    <p>Maksymalny rozmiar w KB</p>
+    <mat-slider
+      [min]="range[0]"
+      [max]="range[1]"
+      [thumbLabel]="true"
+      [formControl]="sizeControl"
+    ></mat-slider>
+  </ng-container>
+  <app-photo-list
+    [photos]="(photos$ | async) ?? []"
+    [page]="(pageData$ | async)?.[0] ?? 0"
+    [pageSize]="(pageData$ | async)?.[1] ?? 0"
+    [totalItems]="(count$ | async) ?? 0"
+    (onFavoriteClick)="favoriteClick($event)"
+    (onPageChange)="pageChange($event)"
+    (onDeleteClick)="deleteClick($event)"
+  ></app-photo-list>
+</div>
+
+<ng-template #empty>
+  <div class="empty">
+    <mat-icon>cloud_off</mat-icon>
+    <h2>Brak zdjęć</h2>
+  </div>
+</ng-template>

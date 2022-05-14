@@ -1,0 +1,44 @@
+<mat-paginator
+  [pageIndex]="page"
+  [pageSize]="pageSize"
+  [length]="totalItems"
+  [pageSizeOptions]="[5, 10, 15, 20]"
+  (page)="onPage($event)"
+></mat-paginator>
+<ng-container *ngIf="photos.length; else empty">
+  <div *ngFor="let image of photos; trackBy: trackByFn" class="img-wrapper">
+    <img [src]="image.safeUrl" />
+    <div class="overlay">
+      <div class="content">
+        <button mat-icon-button (click)="deleteImage(image.url)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="previewImage(image)">
+          <mat-icon>preview</mat-icon>
+        </button>
+        <button
+          [ngClass]="{ checked: image.favorite }"
+          mat-icon-button
+          (click)="favoriteClick(image.url)"
+        >
+          <mat-icon>favorite</mat-icon>
+        </button>
+        <div class="name">{{ image.name }}</div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<mat-paginator
+  [pageIndex]="page"
+  [pageSize]="pageSize"
+  [length]="totalItems"
+  [pageSizeOptions]="[5, 10, 15, 20]"
+  (page)="onPage($event)"
+></mat-paginator>
+
+<ng-template #empty>
+  <div class="empty">
+    <mat-icon>cloud_off</mat-icon>
+    <h2>Brak zdjęć</h2>
+  </div>
+</ng-template>
