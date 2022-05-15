@@ -43,7 +43,36 @@ export class GalleryService {
   constructor(
     private authService: AuthService,
     private sanitizer: DomSanitizer
-  ) {}
+  ) {
+    this.photos = [
+      344 * 1000,
+      95 * 1000,
+      3971 * 1000,
+      2742 * 1000,
+      2726 * 1000,
+      2733 * 1000,
+      1206 * 1000,
+      946 * 1000,
+      1048 * 1000,
+      1191 * 1000,
+      1015 * 1000,
+      1060 * 1000,
+      1139 * 1000,
+      1327 * 1000,
+      1044 * 1000,
+      495 * 1000,
+    ].map((_, id) => ({
+      name: `${id + 1}.jpg`,
+      url: `assets/imgs/${id + 1}.jpg`,
+      size: _,
+      favorite: true,
+      owner: 'admin@admin.com',
+      lastModification: new Date().getDate(),
+      safeUrl: this.sanitizer.bypassSecurityTrustUrl(
+        `assets/imgs/${id + 1}.jpg`
+      ),
+    }));
+  }
 
   public addToFavorites(url: string): void {
     this.photos = this.photos.map((photo) =>

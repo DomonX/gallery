@@ -10,12 +10,15 @@ const routes: Routes = [
   {
     path: 'gallery',
     loadChildren: () =>
-      import('./gallery/gallery.module').then(
-        (m) => m.GalleryModule
-      ),
+      import('./gallery/gallery.module').then((m) => m.GalleryModule),
   },
   {
     path: '',
+    redirectTo: 'gallery',
+    pathMatch: 'full',
+  },
+  {
+    path: 'upload',
     loadChildren: () =>
       import('./main/containers/main/main.module').then((m) => m.MainModule),
   },
