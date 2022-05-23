@@ -10,13 +10,18 @@
     <img [src]="image.safeUrl" />
     <div class="overlay">
       <div class="content">
-        <button mat-icon-button (click)="deleteImage(image.url)">
+        <button
+          *ngIf="!readonly"
+          mat-icon-button
+          (click)="deleteImage(image.url)"
+        >
           <mat-icon>delete</mat-icon>
         </button>
         <button mat-icon-button (click)="previewImage(image)">
           <mat-icon>preview</mat-icon>
         </button>
         <button
+          *ngIf="!readonly"
           [ngClass]="{ checked: image.favorite }"
           mat-icon-button
           (click)="favoriteClick(image.url)"

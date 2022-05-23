@@ -1,0 +1,8 @@
+<div class="card">
+  <app-photo-list
+    [readonly]="true"
+    [photos]="photos"
+    [totalItems]="40"
+    (onPageChange)="pageChange($event)"
+  ></app-photo-list>
+</div>

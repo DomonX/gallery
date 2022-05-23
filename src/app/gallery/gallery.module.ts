@@ -14,14 +14,11 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UploadModule } from '../main/components/upload/upload.module';
+import { PhotoListModule } from './components/photo-list/photo-list.module';
 
 @NgModule({
-  declarations: [
-    GalleryComponent,
-    ImagePreviewComponent,
-    PhotoListComponent,
-    FavoriteComponent,
-  ],
+  declarations: [GalleryComponent, ImagePreviewComponent, FavoriteComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([
@@ -39,6 +36,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    UploadModule,
+    PhotoListModule,
   ],
   exports: [GalleryComponent],
 })

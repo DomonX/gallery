@@ -14,6 +14,7 @@ export class PhotoListComponent implements OnInit {
   @Input() public page: number = 0;
   @Input() public pageSize: number = 0;
   @Input() public totalItems: number = 0;
+  @Input() public readonly: boolean = false;
 
   @Output() public onPageChange: EventEmitter<[number, number]> =
     new EventEmitter<[number, number]>();

@@ -22,6 +22,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./main/containers/main/main.module').then((m) => m.MainModule),
   },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+  },
 ];
 
 @NgModule({
