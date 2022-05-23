@@ -5,6 +5,16 @@
       <mat-icon class="menu-icon">photo_library</mat-icon>
     </div>
   </a>
+  <a
+    *ngIf="!(loggedUser$ | async)"
+    [routerLink]="['dashboard']"
+    class="menu-item"
+  >
+    <div class="menu-item">
+      <span class="label">Dashboard</span>
+      <mat-icon class="menu-icon">dashboard</mat-icon>
+    </div>
+  </a>
   <a *ngIf="loggedUser$ | async" [routerLink]="['upload']" class="menu-item">
     <span class="label">Dodawanie zdjęć</span>
     <mat-icon class="icon">add_a_photo</mat-icon>
