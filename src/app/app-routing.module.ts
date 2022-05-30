@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'gallery',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
   {

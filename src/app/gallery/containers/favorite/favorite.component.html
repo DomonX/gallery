@@ -4,7 +4,12 @@
   </div>
   <p>Wyszukaj zdjęcie</p>
   <mat-form-field class="search" appearance="outline">
-    <input [formControl]="searchControl" type="text" matInput />
+    <input
+      placeholder="Podaj nazwę lub tag"
+      [formControl]="searchControl"
+      type="text"
+      matInput
+    />
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
   <ng-container *ngIf="rangeSize$ | async as range">

@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { GalleryPhoto } from '../../models/gallery.models';
+import { GalleryService } from '../../services/gallery.service';
 import { ImagePreviewComponent } from '../image-preview/image-preview.component';
+import { TagFormComponent } from '../tag-form/tag-form.component';
 
 @Component({
   selector: 'app-photo-list',
@@ -25,7 +27,10 @@ export class PhotoListComponent implements OnInit {
   @Output() public onDeleteClick: EventEmitter<string> =
     new EventEmitter<string>();
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private galleryService: GalleryService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -55,5 +60,22 @@ export class PhotoListComponent implements OnInit {
 
   public onPage(event: PageEvent): void {
     this.onPageChange.emit([event.pageIndex, event.pageSize]);
+  }
+
+  public openTag(photo: GalleryPhoto): void {
+    const ref = this.dialog.open(TagFormComponent, {
+      maxHeight: '90vh',
+      maxWidth: '90vw',
+      minWidth: '50vw',
+      disableClose: true,
+    });
+
+    ref.componentInstance.currentTags = photo.tags;
+
+    ref.afterClosed().subscribe((tags) => {
+      if (tags) {
+        this.galleryService.updateTags(photo.url, tags);
+      }
+    });
   }
 }

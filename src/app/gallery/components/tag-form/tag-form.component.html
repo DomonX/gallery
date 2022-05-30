@@ -1,0 +1,40 @@
+<mat-form-field
+  *ngIf="tags$ | async as tags"
+  class="example-chip-list"
+  appearance="fill"
+>
+  <mat-label>Tagi</mat-label>
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let tag of currentTags" (removed)="removeTag(tag)">
+      {{ tag }}
+      <button matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
+    <input
+      #manualInput
+      placeholder="Nowy tag"
+      [formControl]="tagControl"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="addTag($event.value)"
+    />
+  </mat-chip-list>
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    (optionSelected)="addTag($event.option.viewValue)"
+  >
+    <mat-option *ngFor="let tag of filteredTags$ | async" [value]="tag">
+      {{ tag }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+<div class="footer">
+  <button mat-flat-button color="primary" [mat-dialog-close]="currentTags">
+    Zapisz
+  </button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="null">
+    Anuluj
+  </button>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import {
   combineLatest,
@@ -7,6 +7,9 @@ import {
   startWith,
   switchMap,
   map,
+  takeUntil,
+  skip,
+  distinctUntilChanged,
 } from 'rxjs';
 import { GalleryPhoto } from '../../models/gallery.models';
 import { GalleryService } from '../../services/gallery.service';
@@ -16,7 +19,7 @@ import { GalleryService } from '../../services/gallery.service';
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
 })
-export class GalleryComponent implements OnInit {
+export class GalleryComponent implements OnInit, OnDestroy {
   public photos$: Observable<GalleryPhoto[]>;
   public rangeSize$: Observable<[number, number]>;
   public count$: Observable<number>;
@@ -27,6 +30,8 @@ export class GalleryComponent implements OnInit {
   public pageData$: ReplaySubject<[number, number]> = new ReplaySubject<
     [number, number]
   >(1);
+
+  private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(private galleryService: GalleryService) {
     const photoData$ = combineLatest([
@@ -39,6 +44,19 @@ export class GalleryComponent implements OnInit {
       )
     );
 
+    combineLatest([
+      this.pageData$.pipe(
+        map((i) => i[1]),
+        distinctUntilChanged()
+      ),
+      this.sizeControl.valueChanges.pipe(startWith(undefined)),
+      this.searchControl.valueChanges.pipe(startWith('')),
+    ])
+      .pipe(skip(1), takeUntil(this.destroyed$))
+      .subscribe(([size]) => {
+        this.pageData$.next([0, size] as [number, number]);
+      });
+
     this.photos$ = photoData$.pipe(map((data) => data.items));
 
     this.count$ = photoData$.pipe(map((data) => data.total));
@@ -47,6 +65,11 @@ export class GalleryComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
+  }
 
   public favoriteClick(url: string): void {
     this.galleryService.addToFavorites(url);

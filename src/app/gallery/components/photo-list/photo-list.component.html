@@ -22,6 +22,14 @@
         </button>
         <button
           *ngIf="!readonly"
+          [ngClass]="{ filled: image.tags.length }"
+          mat-icon-button
+          (click)="openTag(image)"
+        >
+          <mat-icon>tag</mat-icon>
+        </button>
+        <button
+          *ngIf="!readonly"
           [ngClass]="{ checked: image.favorite }"
           mat-icon-button
           (click)="favoriteClick(image.url)"

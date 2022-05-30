@@ -53,6 +53,9 @@
   &.checked {
     color: $accent-700;
   }
+  &.filled {
+    color: $primary-blue-400;
+  }
 }
 
 mat-paginator {

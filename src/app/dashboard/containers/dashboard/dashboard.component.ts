@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
       name: 'Przykładowy plik',
       size: 0,
       owner: 'Jan Kowalski',
+      tags: [],
     }));
 
     this.photos = this.allPhotos.slice(this.range[0], this.range[1]);

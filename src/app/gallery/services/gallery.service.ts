@@ -45,26 +45,27 @@ export class GalleryService {
     private sanitizer: DomSanitizer
   ) {
     this.photos = [
-      344 * 1000,
-      95 * 1000,
-      3971 * 1000,
-      2742 * 1000,
-      2726 * 1000,
-      2733 * 1000,
-      1206 * 1000,
-      946 * 1000,
-      1048 * 1000,
-      1191 * 1000,
-      1015 * 1000,
-      1060 * 1000,
-      1139 * 1000,
-      1327 * 1000,
-      1044 * 1000,
-      495 * 1000,
-    ].map((_, id) => ({
+      { size: 344 * 1000, tags: ['Pies'] },
+      { size: 95 * 1000, tags: ['Pies'] },
+      { size: 3971 * 1000, tags: ['Budowle', 'Zamek'] },
+      { size: 2742 * 1000, tags: ['Natura', 'Zachód'] },
+      { size: 2726 * 1000, tags: ['Natura', 'Zachód'] },
+      { size: 2733 * 1000, tags: ['Natura', 'Śnieg'] },
+      { size: 1206 * 1000, tags: ['Natura', 'Woda'] },
+      { size: 946 * 1000, tags: ['Natura', 'Zachód'] },
+      { size: 1048 * 1000, tags: ['Natura'] },
+      { size: 1191 * 1000, tags: ['Natura'] },
+      { size: 1015 * 1000, tags: ['Natura'] },
+      { size: 1060 * 1000, tags: ['Budowle'] },
+      { size: 1139 * 1000, tags: ['Budowle'] },
+      { size: 1327 * 1000, tags: ['Natura', 'Kwiaty'] },
+      { size: 1044 * 1000, tags: ['Budowle'] },
+      { size: 495 * 1000, tags: ['Pies'] },
+    ].map(({ size, tags }, id) => ({
       name: `${id + 1}.jpg`,
       url: `assets/imgs/${id + 1}.jpg`,
-      size: _,
+      size,
+      tags,
       favorite: true,
       owner: 'admin@admin.com',
       lastModification: new Date().getDate(),
@@ -97,6 +98,7 @@ export class GalleryService {
       favorite: false,
       lastModification: file.lastModified,
       owner: userEmail,
+      tags: [],
     };
 
     this.photos = [...this.photos, photo];
@@ -118,8 +120,12 @@ export class GalleryService {
       map((photos) => {
         let currentPhotos = photos;
 
-        currentPhotos = photos.filter((photo) =>
-          photo.name.toLowerCase().includes(search.toLowerCase())
+        currentPhotos = photos.filter(
+          (photo) =>
+            photo.name.toLowerCase().includes(search.toLowerCase()) ||
+            photo.tags.some((tag) =>
+              tag.toLowerCase().includes(search.toLowerCase())
+            )
         );
 
         const currentUser = this.authService.loggedUser?.email;
@@ -162,5 +168,23 @@ export class GalleryService {
 
   public delete(url: string): void {
     this.photos = this.photos.filter((photo) => photo.url !== url);
+  }
+
+  public getTags(): Observable<string[]> {
+    return this.photos$.pipe(
+      map((photos) => {
+        const tags = photos.reduce(
+          (acc, photo) => [...acc, ...photo.tags],
+          [] as string[]
+        );
+        return Array.from(new Set(tags));
+      })
+    );
+  }
+
+  public updateTags(url: string, tags: string[]): void {
+    this.photos = this.photos.map((photo) =>
+      photo.url === url ? { ...photo, tags } : photo
+    );
   }
 }

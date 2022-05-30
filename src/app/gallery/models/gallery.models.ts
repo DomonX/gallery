@@ -8,4 +8,5 @@ export interface GalleryPhoto {
   size: number;
   lastModification: number;
   owner: string;
+  tags: string[];
 }

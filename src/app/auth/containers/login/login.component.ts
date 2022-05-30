@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     );
 
     if (res) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/', 'gallery']);
     } else {
       this.snack.open('Błędne dane logowania', '', {
         duration: 2000,
